@@ -36,6 +36,8 @@ import { strict } from 'assert';
   app.get("/filteredimage/", async (req, res) => {
     let { image_url } = req.query;
 
+    
+    // validate if the image exist
     if (!image_url) {
       return res.status(400).send(`image_url is required`);
     }
@@ -43,10 +45,6 @@ import { strict } from 'assert';
     if (!isValidUrl(image_url)) {
       return res.status(422).send(`image_url is not valid`);
     }
-
-
-    // validate if the image exist
-
 
     let imagePath = await filterImageFromURL(image_url).then((imagePath) => {
       console.log("image file path " + imagePath);
