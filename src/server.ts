@@ -33,11 +33,9 @@ import { strict } from 'assert';
   /**************************************************************************** */
 
   // {{host}}/filteredimage?name=image_url={{URL}}
-  app.get("/filteredimage/", async (req, res) => {
+  app.get("/filteredimage/",  async (req:express.Request, res:express.Response) => {
     let { image_url } = req.query;
 
-    
-    // validate if the image exist
     if (!image_url) {
       return res.status(400).send(`image_url is required`);
     }
@@ -46,12 +44,16 @@ import { strict } from 'assert';
       return res.status(422).send(`image_url is not valid`);
     }
 
-    let imagePath = await filterImageFromURL(image_url).then((imagePath) => {
+
+    // validate if the image exist
+
+
+    let imagePath:string = await filterImageFromURL(image_url).then((imagePath:string) => {
       console.log("image file path " + imagePath);
       return imagePath;
     });
 
-    res.status(200).sendFile(imagePath, function (err) {
+    res.status(200).sendFile(imagePath, function (err:Error) {
       if (err) {
         console.log("cannot send image");
       } else {
@@ -69,11 +71,11 @@ import { strict } from 'assert';
 
   // Root Endpoint
   // Displays a simple message to the user
-  app.get("/", async (req, res) => {
+  app.get("/",  async (req:express.Request, res:express.Response) => {
     res.send("try GET /filteredimage?image_url={{}}")
   });
 
-  process.on('uncaughtException', function (err) {
+  process.on('uncaughtException', function (err:Error) {
     console.log(err);
   });
   // Start the Server

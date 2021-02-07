@@ -8,7 +8,7 @@ describe('isValidUrl', ()=>{
 it('test valid url',() =>
 {
 
-  const validUrls = [
+  const validUrls:Array<string> = [
     "http://example.com",
     "http://example.com/blah",
     "http://127.0.0.1",
@@ -27,7 +27,7 @@ validUrls.forEach(url => {
 
 it('test invalid url',() =>
 {
-  const inValidUrls = [
+  const inValidUrls:Array<string> = [
     "oo.com",
     "://foo..",
     "//.com",
